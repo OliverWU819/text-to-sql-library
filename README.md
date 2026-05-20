@@ -38,14 +38,14 @@ The same pattern powers internal analytics tooling at Snowflake, Databricks, and
 
 ## Architecture
 
-User question (English)
-↓
-Prompt + schema description sent to Claude
-↓
-Claude returns SQL only
-↓
-Python executes SQL against SQLite
-↓
+User question (English),
+
+Prompt + schema description sent to Claude,
+
+Claude returns SQL only,
+
+Python executes SQL against SQLite,
+
 Result returned as a pandas DataFrame
 
 The schema is described in the prompt so Claude knows the exact column names and types — this prevents hallucinated columns, which is the most common failure mode for naive text-to-SQL.
