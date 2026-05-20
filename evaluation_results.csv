@@ -1,0 +1,34 @@
+question,sql,sql_ran_successfully,result_preview
+What are the top 5 most checked-out titles overall?,"SELECT Title, SUM(Checkouts) as TotalCheckouts FROM checkouts GROUP BY Title ORDER BY TotalCheckouts DESC LIMIT 5;",True,"                                               Title  TotalCheckouts
+0  Bridge of spies [videorecording] / Touchstone ...             377
+1                                      The Economist          "
+How many digital vs physical checkouts were there in 2016?,"SELECT UsageClass, SUM(Checkouts) AS TotalCheckouts FROM checkouts WHERE CheckoutYear = 2016 GROUP BY UsageClass;",True,"  UsageClass  TotalCheckouts
+0    Digital           85199
+1   Physical          230920"
+Which MaterialType has the highest total checkouts?,"SELECT MaterialType, SUM(Checkouts) as TotalCheckouts FROM checkouts GROUP BY MaterialType ORDER BY TotalCheckouts DESC LIMIT 1;",True,"  MaterialType  TotalCheckouts
+0         BOOK          140714"
+What is the average number of checkouts per item?,SELECT AVG(Checkouts) FROM checkouts;,True,"   AVG(Checkouts)
+0          3.1612"
+Show monthly checkout totals for the year 2016.,"SELECT CheckoutMonth, SUM(Checkouts) AS TotalCheckouts FROM checkouts WHERE CheckoutYear = 2016 GROUP BY CheckoutMonth ORDER BY CheckoutMonth;",True,"   CheckoutMonth  TotalCheckouts
+0              6          316119"
+Which publisher appears most often in the dataset?,"SELECT Publisher, COUNT(*) as count
+FROM checkouts
+WHERE Publisher IS NOT NULL AND Publisher != ''
+GROUP BY Publisher
+ORDER BY count DESC
+LIMIT 1;",True,"            Publisher  count
+0  Random House, Inc.   4213"
+Find the top 10 creators by total checkouts.,"SELECT Creator, SUM(Checkouts) AS TotalCheckouts FROM checkouts WHERE Creator IS NOT NULL AND Creator != '' GROUP BY Creator ORDER BY TotalCheckouts DESC LIMIT 10;",True,"                     Creator  TotalCheckouts
+0                Willems, Mo            1291
+1             Meadows, Daisy             797
+2          Stilton, Geronimo             749
+3         Osborne, M"
+How many unique titles are there?,SELECT COUNT(DISTINCT Title) FROM checkouts;,True,"   COUNT(DISTINCT Title)
+0                  98671"
+What percentage of checkouts are digital?,"SELECT
+  ROUND(100.0 * SUM(CASE WHEN UsageClass = 'Digital' THEN Checkouts ELSE 0 END) / SUM(Checkouts), 2) AS digital_percentage
+FROM checkouts;",True,"   digital_percentage
+0               26.95"
+What are the top 5 most checked-out ebooks specifically?,"SELECT Title, Creator, SUM(Checkouts) as TotalCheckouts FROM checkouts WHERE MaterialType = 'EBOOK' GROUP BY Title, Creator ORDER BY TotalCheckouts DESC LIMIT 5;",True,"                                               Title  ... TotalCheckouts
+0  The Goldfinch: A Novel (Pulitzer Prize for Fic...  ...            241
+1               All the Light We Cannot See: A Novel  "
